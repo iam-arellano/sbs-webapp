@@ -90,7 +90,7 @@ pipeline {
                    git commit -m "Updated Deployment Manifest"
                 """
                 withCredentials([gitUsernamePassword(credentialsId: 'github_token', gitToolName: 'Default')]) {
-                  sh "git push https://github.com/iam-arellano/gitops-repair-and-maintenance-app.git  main"
+                  sh "git push https://github.com/iam-arellano/sbs-webapp.git  main"
                 }
             }
         }
