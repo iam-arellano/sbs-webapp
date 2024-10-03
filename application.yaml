@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-sbs-argocd
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/iam-arellano/sbs-webapp.git
+    targetRevision: HEAD
+    path: .                   # path of your yaml manifest
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: namespace-sbs
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:                                                              # to automaticaly sync  any change in the git repository
+      selfHeal: true                                                        # selfheal true is used to undoes manual config in yaml manifest
+      prune: true

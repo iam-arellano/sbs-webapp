@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-sbs
+  labels:
+    app: app-sbs
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-sbs
+  template:
+    metadata:
+      labels:
+        app: app-sbs
+    spec:
+      containers:
+      - name: c-sbs
+        image: raemondarellano/sbs-webapp:1.0.0
+        ports:
+        - containerPort: 80 

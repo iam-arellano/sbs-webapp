@@ -29,28 +29,6 @@ pipeline {
         }
 
 
-
-    //     stage("SonarQube Analysis"){
-    //        steps {
-	//            script {
-	// 	        withSonarQubeEnv(credentialsId: 'sonarqube_access') { 
-    //                     sh "sonar-sonar"
-	// 	        }
-	//            }	
-    //        }
-    //    }
-
-
-    //      stage("Quality Gate"){
-    //        steps {
-    //            script {
-    //                 waitForQualityGate abortPipeline: false, credentialsId: 'sonarqube_access'
-    //             }	
-    //         }
-
-    //    }
-
-
         stage ('DEV Approve') {                 //aproval before proceed
              steps {
                 echo "Taking approval from DEV Manager for QA Deployment"
@@ -92,14 +70,16 @@ pipeline {
           }
         }
 
-            // Trigger gitops-calculator
-        //   stage("Trigger CD Pipeline") {
-        //     steps {
-        //         script {
-        //             sh "curl -v -k --user raemond:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'http://192.168.100.151:8080/job/gitops-rms-app/buildWithParameters?token=gitops-token-rms'"
-        //         }
-        //     }
-        // }
+        // Update Deployment yaml
+         stage("Update the Deployment Tags") {
+            steps {
+                sh """
+                   cat deployment.yaml
+                   sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yaml
+                   cat deployment.yaml
+                """
+                 }
+             }
 
      }
 }

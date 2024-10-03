@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-sbs
+spec:
+  selector:
+    app: app-sbs
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+#      nodePort: 30012
