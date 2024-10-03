@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: c-sbs
-        image: raemondarellano/sbs-webapp:1.0.0
+        image: raemondarellano/sbs-webapp:1.0.0-5
         ports:
         - containerPort: 80 
